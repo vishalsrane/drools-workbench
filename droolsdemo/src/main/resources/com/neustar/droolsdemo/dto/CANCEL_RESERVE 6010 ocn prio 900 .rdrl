@@ -1,0 +1,11 @@
+package com.neustar.droolsdemo.dto;
+
+import java.lang.Number;
+
+rule "CANCEL_RESERVE 6010 ocn prio 900 "
+	dialect "mvel"
+	when
+		dn : DirectoryNumberDto( currentOcn == 6010 )
+	then
+		dn.setResourceState( "HFL" );
+end

@@ -1,0 +1,13 @@
+package com.neustar.droolsdemo.dto;
+
+import java.lang.Number;
+
+rule "CANCEL_RESERVE all ocn prio 1000 ud Prepaid udType UDText"
+	dialect "mvel"
+	when
+		udType : UserDataTypeDto( userDataKey == "UDText" )
+		ud : UserDataDto( userData == "Prepaid" , userDataType == udType )
+		dn : DirectoryNumberDto( userData contains ud )
+	then
+		dn.setResourceState( "HFL" );
+end

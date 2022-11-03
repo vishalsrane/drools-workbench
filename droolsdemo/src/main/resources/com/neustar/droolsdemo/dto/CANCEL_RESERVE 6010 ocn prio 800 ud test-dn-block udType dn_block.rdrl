@@ -1,0 +1,13 @@
+package com.neustar.droolsdemo.dto;
+
+import java.lang.Number;
+
+rule "CANCEL_RESERVE 6010 ocn prio 800 ud test-dn-block udType dn_block"
+	dialect "mvel"
+	when
+		udType : UserDataTypeDto( userDataKey == "UDText" )
+		ud : UserDataDto( userData == "Prepaid" , userDataType == udType )
+		dn : DirectoryNumberDto( userData contains ud , currentOcn == 6010 )
+	then
+		dn.setResourceState( "HFL" );
+end
